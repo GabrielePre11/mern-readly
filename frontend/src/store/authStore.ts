@@ -51,7 +51,7 @@ interface authStore {
 
 const API_URL = import.meta.env.DEV
   ? "http://localhost:3000/api"
-  : "https://mern-readly.onrender.com/api";
+  : "https://mern-readly.onrender.com/";
 axios.defaults.withCredentials = true;
 
 export const useAuthStore = create<authStore>((set) => ({
