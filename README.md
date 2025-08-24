@@ -34,10 +34,24 @@ This project allowed me to combine **frontend** and **backend** knowledge into a
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](#)
 [![Postman](https://img.shields.io/badge/Postman-FF6C37?logo=postman&logoColor=white)](#)
 
+---
+
+## ✨ Features
+
+- 🔒 Authentication & Authorization – Secure login/registration with JWT, HTTP-only cookies and custom auth middlewares.
+- 🛡️ Security – Implemented with CORS, Helmet, password hashing and secure cookie handling.
+- 📚 Browse & Search – Explore a vast collection of books with advanced filters, categories and full-text search.
+- ⭐ Favorites – Users can save and manage their favorite books.
+- 🛠️ Admin Panel – Admins can add, update, and delete books with a dedicated dashboard (full CRUD operations).
+- 📱 Responsive UI – Fully optimized for both desktop and mobile devices.
+- ⚡ Fast & Scalable – REST API built with Express + TypeScript and a MongoDB database.
 
 ---
 
 ## 📸 Screenshots
-![App Screenshot](public/homepage-desktop.jpeg)
-![App Screenshot](public/games-desktop.jpeg)
-![App Screenshot](public/gamepage-desktop.jpeg)
+![App Screenshot](project_images/homepage-desktop.png)
+![App Screenshot](project_images/homepage-mobile.png)
+![App Screenshot](project_images/book-page.png)
+![App Screenshot](project_images/category-page.png)
+![App Screenshot](project_images/dashboard.png)
+![App Screenshot](project_images/signup-page.png)
