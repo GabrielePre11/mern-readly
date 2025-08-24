@@ -30,9 +30,14 @@ app.use(
 );
 
 // CORS
+const allowedOrigin =
+  process.env.NODE_ENV === "production"
+    ? "https://mern-readly.vercel.app" // Live
+    : process.env.CLIENT_URI ?? "http://localhost:5173"; // Local
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URI ?? "http://localhost:5173",
+    origin: allowedOrigin,
     credentials: true,
   })
 );

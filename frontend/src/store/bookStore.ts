@@ -88,7 +88,9 @@ interface BookStore {
   deleteBook: (id: string) => Promise<void>;
 }
 
-const API_URL = "http://localhost:3000/api/books";
+const API_URL = import.meta.env.DEV
+  ? "http://localhost:3000/api"
+  : "https://mern-readly.onrender.com/api";
 axios.defaults.withCredentials = true;
 
 export const useBookStore = create<BookStore>((set) => ({
@@ -129,7 +131,7 @@ export const useBookStore = create<BookStore>((set) => ({
         queryParams.append("limit", String(filters.limit));
 
       const response = await axios.get<Response>(
-        `${API_URL}?${queryParams.toString()}`
+        `${API_URL}/books?${queryParams.toString()}`
       );
 
       if (response.data.success) {
@@ -180,7 +182,7 @@ export const useBookStore = create<BookStore>((set) => ({
         queryParams.append("limit", String(filters.limit));
 
       const response = await axios.get<Response>(
-        `${API_URL}?${queryParams.toString()}`
+        `${API_URL}/books?${queryParams.toString()}`
       );
 
       if (response.data.success) {
@@ -231,7 +233,7 @@ export const useBookStore = create<BookStore>((set) => ({
         queryParams.append("limit", String(filters.limit));
 
       const response = await axios.get<Response>(
-        `${API_URL}?${queryParams.toString()}`
+        `${API_URL}/books?${queryParams.toString()}`
       );
 
       if (response.data.success) {
@@ -273,7 +275,9 @@ export const useBookStore = create<BookStore>((set) => ({
     set({ loadingState: true, errorState: null, message: null });
 
     try {
-      const response = await axios.get<Response>(`${API_URL}/${bookSlug}`);
+      const response = await axios.get<Response>(
+        `${API_URL}/books/${bookSlug}`
+      );
       set({ book: response.data.book, message: response.data.message });
     } catch (error) {
       if (error instanceof Error) {
@@ -294,7 +298,7 @@ export const useBookStore = create<BookStore>((set) => ({
 
     try {
       const response = await axios.get<Response>(
-        `${API_URL}?search=${encodeURIComponent(userQuery)}`
+        `${API_URL}/books?search=${encodeURIComponent(userQuery)}`
       );
 
       set({
@@ -318,9 +322,13 @@ export const useBookStore = create<BookStore>((set) => ({
     set({ loadingState: true, errorState: null, message: null });
 
     try {
-      const response = await axios.post(`${API_URL}/create-book`, bookData, {
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        `${API_URL}/books/create-book`,
+        bookData,
+        {
+          withCredentials: true,
+        }
+      );
 
       if (response.data.success) {
         set((state) => ({
@@ -343,7 +351,7 @@ export const useBookStore = create<BookStore>((set) => ({
 
     try {
       const response = await axios.put<Response>(
-        `${API_URL}/update-book/${id}`,
+        `${API_URL}/books/update-book/${id}`,
         updateBookData
       );
 
@@ -372,7 +380,7 @@ export const useBookStore = create<BookStore>((set) => ({
 
     try {
       const response = await axios.delete<Response>(
-        `${API_URL}/delete-book/${id}`
+        `${API_URL}/books/delete-book/${id}`
       );
 
       if (response.data.success) {

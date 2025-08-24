@@ -49,7 +49,9 @@ interface authStore {
   getTotalAdmins: () => Promise<void>;
 }
 
-const API_URL = "http://localhost:3000/api/auth";
+const API_URL = import.meta.env.DEV
+  ? "http://localhost:3000/api"
+  : "https://mern-readly.onrender.com/api";
 axios.defaults.withCredentials = true;
 
 export const useAuthStore = create<authStore>((set) => ({
@@ -69,7 +71,7 @@ export const useAuthStore = create<authStore>((set) => ({
     set({ loadingState: true, errorState: null });
 
     try {
-      const response = await axios.post<Response>(`${API_URL}/signup`, {
+      const response = await axios.post<Response>(`${API_URL}/auth/signup`, {
         email,
         name,
         password,
@@ -94,7 +96,7 @@ export const useAuthStore = create<authStore>((set) => ({
     set({ loadingState: true, errorState: null });
 
     try {
-      const response = await axios.post<Response>(`${API_URL}/login`, {
+      const response = await axios.post<Response>(`${API_URL}/auth/login`, {
         email,
         password,
       });
@@ -118,7 +120,7 @@ export const useAuthStore = create<authStore>((set) => ({
     set({ loadingState: true, errorState: null });
 
     try {
-      const response = await axios.post<Response>(`${API_URL}/logout`);
+      const response = await axios.post<Response>(`${API_URL}/auth/logout`);
       set({ user: null, message: response.data.message });
     } catch (error) {
       set({ errorState: null, isAuthenticated: false });
@@ -132,9 +134,12 @@ export const useAuthStore = create<authStore>((set) => ({
     set({ loadingState: true, errorState: null });
 
     try {
-      const response = await axios.post<Response>(`${API_URL}/verify-email`, {
-        code,
-      });
+      const response = await axios.post<Response>(
+        `${API_URL}/auth/verify-email`,
+        {
+          code,
+        }
+      );
       return response.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
@@ -155,7 +160,7 @@ export const useAuthStore = create<authStore>((set) => ({
     set({ isCheckingAuth: true, errorState: null });
 
     try {
-      const response = await axios.get<Response>(`${API_URL}/check-auth`, {
+      const response = await axios.get<Response>(`${API_URL}/auth/check-auth`, {
         withCredentials: true,
       });
       set({
@@ -175,7 +180,7 @@ export const useAuthStore = create<authStore>((set) => ({
 
     try {
       const response = await await axios.post<Response>(
-        `${API_URL}/forgot-password`,
+        `${API_URL}/auth/forgot-password`,
         { email }
       );
       set({ loadingState: false, message: response.data.message });
@@ -199,7 +204,7 @@ export const useAuthStore = create<authStore>((set) => ({
 
     try {
       const response = await axios.post<Response>(
-        `${API_URL}/reset-password/${token}`,
+        `${API_URL}/auth/reset-password/${token}`,
         { password }
       );
       set({ loadingState: false, message: response.data.message });
@@ -222,7 +227,7 @@ export const useAuthStore = create<authStore>((set) => ({
     set({ loadingState: true, errorState: null });
 
     try {
-      const response = await axios.get<Response>(`${API_URL}/users`);
+      const response = await axios.get<Response>(`${API_URL}/auth/users`);
       set({ users: response.data.users, totalUsers: response.data.totalUsers });
     } catch (error: unknown) {
       set({ errorState: null });
@@ -236,7 +241,7 @@ export const useAuthStore = create<authStore>((set) => ({
     set({ loadingState: true, errorState: null });
 
     try {
-      const response = await axios.get<Response>(`${API_URL}/admins`);
+      const response = await axios.get<Response>(`${API_URL}/auth/admins`);
       set({
         admins: response.data.admins,
         totalAdmins: response.data.totalAdmins,

@@ -43,7 +43,9 @@ interface genreStore {
   getSingleGenre: (slug: string, page: number) => Promise<void>;
 }
 
-const API_URL = "http://localhost:3000/api/genres";
+const API_URL = import.meta.env.DEV
+  ? "http://localhost:3000/api"
+  : "https://mern-readly.onrender.com/api";
 axios.defaults.withCredentials = true;
 
 export const useGenreStore = create<genreStore>((set) => ({
@@ -58,7 +60,7 @@ export const useGenreStore = create<genreStore>((set) => ({
     set({ loadingState: true, errorState: null });
 
     try {
-      const response = await axios.get<Response>(API_URL);
+      const response = await axios.get<Response>(`${API_URL}/genres`);
       set({ genres: response.data.genres, message: response.data.message });
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
@@ -78,7 +80,7 @@ export const useGenreStore = create<genreStore>((set) => ({
     set({ loadingState: true, errorState: null });
 
     try {
-      const response = await axios.get<Response>(`${API_URL}/${slug}`);
+      const response = await axios.get<Response>(`${API_URL}/genres/${slug}`);
 
       set({
         selectedGenre: response.data.genre,
