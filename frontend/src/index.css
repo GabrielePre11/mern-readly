@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/effect-cards";
+
+@theme {
+  /* Colors */
+  --color-primary: #3b82f6;
+  --color-primary-light: #dbeafe;
+  --color-primary-dark: #003049;
+
+  --color-text: #1e293b;
+  --color-muted: #64748b;
+  --color-bg: #bbd0ff;
+  --color-border: #e2e8f0;
+
+  /* Fonts */
+  --font-default: "Inter", sans-serif;
+  --font-secondary: "Merriweather", serif;
+}
+
+@layer base {
+  a {
+    @apply decoration-0;
+  }
+
+  ul {
+    @apply list-none;
+  }
+
+  img {
+    @apply h-auto w-full;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-secondary;
+  }
+
+  body {
+    @apply bg-bg font-default text-text tracking-tight overflow-x-hidden;
+  }
+
+  html {
+    @apply scroll-auto;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2.5;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-primary-light;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary;
+  }
+}
+
+@keyframes headerSlideIn {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+#play-btn {
+  animation: playBtnPulse 3s ease infinite;
+}
+
+@keyframes playBtnPulse {
+  0%,
+  50% {
+    box-shadow: 0 0 0 0 hsla(0, 0%, 100%, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+/* Genres Scrollbar */
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
