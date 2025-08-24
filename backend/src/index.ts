@@ -30,14 +30,9 @@ app.use(
 );
 
 // CORS
-const allowedOrigin =
-  process.env.NODE_ENV === "production"
-    ? "https://mern-readly.vercel.app" // Live
-    : process.env.CLIENT_URI ?? "http://localhost:5173"; // Local
-
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: ["https://mern-readly.vercel.app", "http://localhost:5173"],
     credentials: true,
   })
 );
@@ -63,4 +58,7 @@ if (process.env.NODE_ENV === "production") {
 app.listen(PORT, () => {
   db();
   console.log(`Server is running on port ${PORT}`);
+
+  console.log("NODE_ENV:", process.env.NODE_ENV);
+  console.log("CLIENT_URI:", process.env.CLIENT_URI);
 });

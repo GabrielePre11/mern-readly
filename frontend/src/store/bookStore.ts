@@ -88,9 +88,8 @@ interface BookStore {
   deleteBook: (id: string) => Promise<void>;
 }
 
-const API_URL = import.meta.env.DEV
-  ? "http://localhost:3000/api"
-  : "https://mern-readly.onrender.com/";
+export const API_URL =
+  import.meta.env.VITE_API_URL ?? "http://localhost:3000/api";
 axios.defaults.withCredentials = true;
 
 export const useBookStore = create<BookStore>((set) => ({
